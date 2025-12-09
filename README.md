@@ -41,7 +41,7 @@ print(f"Score: {scores[0]}")
 
 ### Configuration
 
-Set environment variables for LLM judge configuration:
+#### Option 1: Environment Variables (Traditional)
 
 ```bash
 export JUDGE_API_ENDPOINT="https://api.openai.com/v1/chat/completions"
@@ -50,6 +50,26 @@ export JUDGE_MODEL_NAME="gpt-4"
 export HYDRA_LOG_DIR="./reward_logs"
 export HYDRA_LOGGING_ENABLED="true"
 ```
+
+#### Option 2: Programmatic Configuration (Jupyter Notebooks)
+
+Perfect for Jupyter notebooks where environment variables are less convenient:
+
+```python
+from hydra_rp import set_config
+
+set_config(
+    judge_api_key="your-api-key",
+    judge_model_name="gpt-4",
+    log_dir="./reward_logs",
+    logging_enabled=True,
+    # Optional: customize evaluation prompts
+    chat_judge_prompt="Your custom evaluation prompt...",
+    code_judge_prompt="Your custom code evaluation prompt...",
+)
+```
+
+See [JUPYTER_USAGE.md](JUPYTER_USAGE.md) for detailed Jupyter notebook examples.
 
 ## Task Types
 

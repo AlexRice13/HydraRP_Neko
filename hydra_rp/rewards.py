@@ -20,10 +20,10 @@ from .config import (
     TASK_TYPE_IMAGE,
     TASK_TYPE_MULTI,
     TASK_TYPE_SCENE,
-    CODE_JUDGE_PROMPT,
-    CHAT_JUDGE_PROMPT,
-    MULTI_TURN_JUDGE_PROMPT,
-    SAC_JUDGE_PROMPT,
+    get_code_judge_prompt,
+    get_chat_judge_prompt,
+    get_multi_turn_judge_prompt,
+    get_sac_judge_prompt,
 )
 from .llm_client import call_judge_llm, extract_score_from_response
 
@@ -176,7 +176,7 @@ def reward_code_interpreter(completion: str, prompt: str = "") -> float:
     else:
         run_score = 0.1
 
-    judge_system_prompt = CODE_JUDGE_PROMPT
+    judge_system_prompt = get_code_judge_prompt()
     judge_input = (
         f"问题: {prompt}\n"
         f"模型原始输出：{completion}\n"
@@ -319,7 +319,7 @@ def reward_daily_chat(completion: str, prompt: str = "") -> float:
 
     try:
         judge_res = call_judge_llm(
-            CHAT_JUDGE_PROMPT,
+            get_chat_judge_prompt(),
             f"User: {prompt}\nResponse: {completion}",
             caller_func="reward_daily_chat",
         )
@@ -356,7 +356,7 @@ def reward_multi_turn_chat(completion: str, prompt: str = "") -> float:
             f"[Current Response Analysis Target]:\n{completion}"
         )
         judge_res = call_judge_llm(
-            system_prompt=MULTI_TURN_JUDGE_PROMPT,
+            system_prompt=get_multi_turn_judge_prompt(),
             user_content=judge_input,
             caller_func="reward_multi_turn_chat",
         )
@@ -419,7 +419,7 @@ def reward_scene_response(completion: str, prompt: str = "") -> float:
         return max(0.05, score)
 
     judge_res = call_judge_llm(
-        SAC_JUDGE_PROMPT,
+        get_sac_judge_prompt(),
         f"Prompt: {prompt}\nResponse: {completion}",
         caller_func="reward_scene_response",
     )

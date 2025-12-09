@@ -70,6 +70,8 @@ from .config import (
     TASK_TYPE_SCENE,
     TASK_TYPE_MULTI,
     normalize_task_type,
+    set_config,
+    clear_config,
     # Backward-compatible aliases
     CODE_JUDGE_PRMPT,
     CHAT_JUDGE_PRMPT,
@@ -118,4 +120,8 @@ __all__ = [
     "TASK_TYPE_SCENE",
     "TASK_TYPE_MULTI",
     "normalize_task_type",
+    
+    # Configuration
+    "set_config",
+    "clear_config",
 ]
