@@ -67,7 +67,8 @@ def get_judge_model_name() -> str:
 # Judge Prompts
 # ============================================================================
 
-CODE_JUDGE_PROMPT = """You are a code execution and correctness evaluator.
+# Backward-compatible aliases for legacy misspellings
+CODE_JUDGE_PRMPT = CODE_JUDGE_PROMPT = """You are a code execution and correctness evaluator.
 
 Given:
 - User's question/request
@@ -87,7 +88,7 @@ Scoring criteria:
 - 0.0-0.3: Incorrect or failed
 """
 
-CHAT_JUDGE_PROMPT = """You are evaluating a chat response quality.
+CHAT_JUDGE_PRMPT = CHAT_JUDGE_PROMPT = """You are evaluating a chat response quality.
 
 Evaluate the response based on:
 - Relevance to user's message
@@ -106,7 +107,7 @@ Scoring criteria:
 - 0.0-0.3: Poor or off-topic response
 """
 
-MULTI_TURN_JUDGE_PROMPT = """You are evaluating multi-turn dialogue quality.
+MULTI_TURN_JUDGE_PRMPT = MULTI_TURN_JUDGE_PROMPT = """You are evaluating multi-turn dialogue quality.
 
 Given the dialogue history and current response, evaluate:
 - Context awareness and continuity
@@ -125,7 +126,7 @@ Scoring criteria:
 - 0.0-0.3: Poor context handling
 """
 
-SAC_JUDGE_PROMPT = """You are evaluating a scene/scenario response.
+SAC_JUDGE_PRMPT = SAC_JUDGE_PROMPT = """You are evaluating a scene/scenario response.
 
 Evaluate the response based on:
 - Scene immersion and atmosphere

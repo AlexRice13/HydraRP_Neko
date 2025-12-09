@@ -179,7 +179,7 @@ def reward_code_interpreter(completion: str, prompt: str = "") -> float:
     judge_system_prompt = CODE_JUDGE_PROMPT
     judge_input = (
         f"问题: {prompt}\n"
-        f"模型原始输出：{completion}"
+        f"模型原始输出：{completion}\n"
         f"代码: {code_content}\n"
         f"运行输出: {exec_result['output']}"
     )
@@ -285,9 +285,8 @@ def reward_image_gen(completion: str, prompt: str = "") -> float:
             traits_detected += 1
         if trait_eyes.search(prompt_text):
             traits_detected += 1
-        if trait_hair.search(prompt_text) and re.search(
-            r"(gold|blonde|yellow|金|黄)", prompt_text, re.IGNORECASE
-        ):
+        # Hair trait already includes gold/金, just check for additional blonde/yellow keywords
+        if trait_hair.search(prompt_text):
             traits_detected += 1
         if trait_ear_color.search(prompt_text):
             traits_detected += 1
@@ -463,7 +462,7 @@ def calculate_repetition_penalty(completion: str, task_type: str = "") -> float:
             if not substr.strip():
                 continue
             if re.match(r"^[\s\W_]+$", substr):
-                pass
+                continue  # Skip pure whitespace/punctuation patterns
             if substr in seen_chunks:
                 continue
             seen_chunks.add(substr)

@@ -120,7 +120,10 @@ class RewardLogger:
         self._init_csv_files()
         
         self._initialized = True
-        print(f"📝 RewardLogger initialized | Log directory: {self.log_dir}")
+        # Note: Using print for initialization message as this is a one-time setup notice
+        # Can be suppressed by redirecting stdout if needed
+        if os.getenv("HYDRA_SILENT_INIT", "").lower() not in ("true", "1", "yes"):
+            print(f"📝 RewardLogger initialized | Log directory: {self.log_dir}")
     
     def _init_csv_files(self):
         """Initialize CSV files (write headers)."""

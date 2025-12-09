@@ -24,7 +24,9 @@ from hydra_rp.llm_client import (
 )
 
 # Maintain backward compatibility with global client
-judge_client = get_client().client
+# Note: Returns the JudgeLLMClient instance, which has the OpenAI client as .client
+_global_client = get_client()
+judge_client = _global_client.client
 
 # Show deprecation warning on import
 warnings.warn(
